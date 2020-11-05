@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище testWordModelContainer" CdmEntityContainer="testWordEntities1">
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="testWordModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Бригады">
+      <EntityTypeMapping TypeName="testWordModel.Бригады">
+        <MappingFragment StoreEntitySet="Бригады">
+          <ScalarProperty Name="КодБригады" ColumnName="КодБригады" />
+          <ScalarProperty Name="Название" ColumnName="Название" />
+          <ScalarProperty Name="Машина" ColumnName="Машина" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Задачи">
+      <EntityTypeMapping TypeName="testWordModel.Задачи">
+        <MappingFragment StoreEntitySet="Задачи">
+          <ScalarProperty Name="КодЗадачи" ColumnName="КодЗадачи" />
+          <ScalarProperty Name="Задача" ColumnName="Задача" />
+          <ScalarProperty Name="Бригада" ColumnName="Бригада" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Сотрудники">
+      <EntityTypeMapping TypeName="testWordModel.Сотрудники">
+        <MappingFragment StoreEntitySet="Сотрудники">
+          <ScalarProperty Name="КодСотрудника" ColumnName="КодСотрудника" />
+          <ScalarProperty Name="Имя" ColumnName="Имя" />
+          <ScalarProperty Name="Отчество" ColumnName="Отчество" />
+          <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+          <ScalarProperty Name="Специальность" ColumnName="Специальность" />
+          <ScalarProperty Name="Должность" ColumnName="Должность" />
+          <ScalarProperty Name="Фото" ColumnName="Фото" />
+          <ScalarProperty Name="Бригада" ColumnName="Бригада" />
+          <ScalarProperty Name="Логин" ColumnName="Логин" />
+          <ScalarProperty Name="Пароль" ColumnName="Пароль" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

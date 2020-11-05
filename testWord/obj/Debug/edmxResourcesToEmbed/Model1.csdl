@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="testWordModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Бригады">
+    <Key>
+      <PropertyRef Name="КодБригады" />
+    </Key>
+    <Property Name="КодБригады" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Название" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Машина" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Задачи" Relationship="Self.FK_Задачи_Бригада" FromRole="Бригады" ToRole="Задачи" />
+    <NavigationProperty Name="Сотрудники" Relationship="Self.FK_Сотрудники_Бригада" FromRole="Бригады" ToRole="Сотрудники" />
+  </EntityType>
+  <EntityType Name="Задачи">
+    <Key>
+      <PropertyRef Name="КодЗадачи" />
+    </Key>
+    <Property Name="КодЗадачи" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Задача" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Бригада" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Бригады" Relationship="Self.FK_Задачи_Бригада" FromRole="Задачи" ToRole="Бригады" />
+  </EntityType>
+  <EntityType Name="Сотрудники">
+    <Key>
+      <PropertyRef Name="КодСотрудника" />
+    </Key>
+    <Property Name="КодСотрудника" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Имя" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Отчество" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Фамилия" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Специальность" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Должность" Type="Boolean" Nullable="false" />
+    <Property Name="Фото" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="Бригада" Type="Int32" Nullable="false" />
+    <Property Name="Логин" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Пароль" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Бригады" Relationship="Self.FK_Сотрудники_Бригада" FromRole="Сотрудники" ToRole="Бригады" />
+  </EntityType>
+  <Association Name="FK_Задачи_Бригада">
+    <End Role="Бригады" Type="Self.Бригады" Multiplicity="1" />
+    <End Role="Задачи" Type="Self.Задачи" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Бригады">
+        <PropertyRef Name="КодБригады" />
+      </Principal>
+      <Dependent Role="Задачи">
+        <PropertyRef Name="Бригада" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Сотрудники_Бригада">
+    <End Role="Бригады" Type="Self.Бригады" Multiplicity="1" />
+    <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Бригады">
+        <PropertyRef Name="КодБригады" />
+      </Principal>
+      <Dependent Role="Сотрудники">
+        <PropertyRef Name="Бригада" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="testWordEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Бригады" EntityType="Self.Бригады" />
+    <EntitySet Name="Задачи" EntityType="Self.Задачи" />
+    <EntitySet Name="Сотрудники" EntityType="Self.Сотрудники" />
+    <AssociationSet Name="FK_Задачи_Бригада" Association="Self.FK_Задачи_Бригада">
+      <End Role="Бригады" EntitySet="Бригады" />
+      <End Role="Задачи" EntitySet="Задачи" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Сотрудники_Бригада" Association="Self.FK_Сотрудники_Бригада">
+      <End Role="Бригады" EntitySet="Бригады" />
+      <End Role="Сотрудники" EntitySet="Сотрудники" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

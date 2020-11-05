@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище testWordModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Бригады">
+    <Key>
+      <PropertyRef Name="КодБригады" />
+    </Key>
+    <Property Name="КодБригады" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Название" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Машина" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Задачи">
+    <Key>
+      <PropertyRef Name="КодЗадачи" />
+    </Key>
+    <Property Name="КодЗадачи" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Задача" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Бригада" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Сотрудники">
+    <Key>
+      <PropertyRef Name="КодСотрудника" />
+    </Key>
+    <Property Name="КодСотрудника" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Имя" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Отчество" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Фамилия" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Специальность" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Должность" Type="bit" Nullable="false" />
+    <Property Name="Фото" Type="varbinary(max)" Nullable="false" />
+    <Property Name="Бригада" Type="int" Nullable="false" />
+    <Property Name="Логин" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Пароль" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Задачи_Бригада">
+    <End Role="Бригады" Type="Self.Бригады" Multiplicity="1" />
+    <End Role="Задачи" Type="Self.Задачи" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Бригады">
+        <PropertyRef Name="КодБригады" />
+      </Principal>
+      <Dependent Role="Задачи">
+        <PropertyRef Name="Бригада" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Сотрудники_Бригада">
+    <End Role="Бригады" Type="Self.Бригады" Multiplicity="1" />
+    <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Бригады">
+        <PropertyRef Name="КодБригады" />
+      </Principal>
+      <Dependent Role="Сотрудники">
+        <PropertyRef Name="Бригада" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище testWordModelContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Бригады" EntityType="Self.Бригады" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Задачи" EntityType="Self.Задачи" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Сотрудники" EntityType="Self.Сотрудники" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Задачи_Бригада" Association="Self.FK_Задачи_Бригада">
+      <End Role="Бригады" EntitySet="Бригады" />
+      <End Role="Задачи" EntitySet="Задачи" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Сотрудники_Бригада" Association="Self.FK_Сотрудники_Бригада">
+      <End Role="Бригады" EntitySet="Бригады" />
+      <End Role="Сотрудники" EntitySet="Сотрудники" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
