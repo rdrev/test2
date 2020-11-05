@@ -23,7 +23,26 @@
             </TabItem>
             <TabItem Header="Сотрудники">
                 <Grid>
-                    <ListView x:Name="LVC">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <WrapPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="Бригада" Width="175" TextAlignment="Right"/>
+                            <ComboBox Width="225" Name="CBB" SelectionChanged="CBB_SelectionChanged" DisplayMemberPath="Машина"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="Имя" Width="175" TextAlignment="Right"/>
+                            <TextBox Width="225" Name="TBN" TextChanged="TBN_TextChanged"/>
+                        </StackPanel>
+                    </WrapPanel>
+                    <ListView x:Name="LVC" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Center" Grid.Row="1">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -37,7 +56,7 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="200"/>
                                         <ColumnDefinition Width="100"/>
-                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="100"/>
                                     </Grid.ColumnDefinitions>
                                     <Image Grid.RowSpan="4">
                                         <Image.Source>
