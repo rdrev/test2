@@ -27,10 +27,12 @@ namespace testWord
 
         private void BtnVxod_Click(object sender, RoutedEventArgs e)
         {
-            if (testWordEntities1.GetTestWordEntities1().Сотрудники.ToList().Where(p => p.Логин == login.Text && p.Пароль == Convert.ToString(password.Password) && p.Должность == true).ToList().Count() > 0)
-                MenegerPage.Frame.Navigate(new TablePage(true));
-            else if (testWordEntities1.GetTestWordEntities1().Сотрудники.ToList().Where(p => p.Логин == login.Text && p.Пароль == Convert.ToString(password.Password) && p.Должность == false).ToList().Count() > 0)
-                MenegerPage.Frame.Navigate(new TablePage(false));
+            var vxod = testWordEntities1.GetTestWordEntities1().Сотрудники.ToList().Find(p => p.Логин == login.Text && p.Пароль == Convert.ToString(password.Password));
+
+            if (vxod != null)
+                MenegerPage.Frame.Navigate(new TablePage(vxod.Должность,vxod.Бригады));
+            //else if (testWordEntities1.GetTestWordEntities1().Сотрудники.ToList().Where(p => p.Логин == login.Text && p.Пароль == Convert.ToString(password.Password) && p.Должность == false).ToList().Count() > 0)
+            //    MenegerPage.Frame.Navigate(new TablePage(false));
             else
             MessageBox.Show("не верный лошин или пароль", "упс");
 

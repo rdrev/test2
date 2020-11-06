@@ -20,9 +20,15 @@ namespace testWord
     /// </summary>
     public partial class TablePage : Page
     {
-        public TablePage(bool b)
-        {
+        private bool d;
+        private Бригады b = new Бригады();
+        
+        public TablePage(bool d, Бригады b)
+        {     
             InitializeComponent();
+
+            this.d = d;
+            this.b = b;
 
             var comboList = testWordEntities1.GetTestWordEntities1().Бригады.ToList();
 
@@ -36,31 +42,68 @@ namespace testWord
             CBB1.SelectedIndex = 0;
             CBB2.SelectedIndex = 0;
 
-            LVC.ItemsSource = testWordEntities1.GetTestWordEntities1().Сотрудники.ToList();
-            DGT.ItemsSource = testWordEntities1.GetTestWordEntities1().Задачи.ToList();
-
+            if (d)
+            {
+                TB1.Visibility = Visibility.Visible;
+                TB2.Visibility = Visibility.Visible;
+                AddBri.Visibility = Visibility.Visible;
+                AddEmp.Visibility = Visibility.Visible;
+                AddTask.Visibility = Visibility.Visible;
+                CBB1.Visibility = Visibility.Visible;
+                CBB2.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TB1.Visibility = Visibility.Hidden;
+                TB2.Visibility = Visibility.Hidden;
+                AddBri.Visibility = Visibility.Hidden;
+                AddEmp.Visibility = Visibility.Hidden;
+                AddTask.Visibility = Visibility.Hidden;
+                CBB1.Visibility = Visibility.Hidden;
+                CBB2.Visibility = Visibility.Hidden;
+            }
             update1();
             update2();
         }
 
         private void update2()
         {
-            var comboList = testWordEntities1.GetTestWordEntities1().Сотрудники.ToList();
-            if (CBB2.SelectedIndex > 0)
-                comboList = comboList.Where(p => p.Бригады == (CBB1.SelectedItem as Бригады)).ToList();
+            if (d) 
+            {
+                var comboList = testWordEntities1.GetTestWordEntities1().Сотрудники.ToList();
+                if (CBB2.SelectedIndex > 0)
+                    comboList = comboList.Where(p => p.Бригады == (CBB2.SelectedItem as Бригады)).ToList();
 
-            comboList = comboList.Where(p => p.Имя.ToLower().Contains(TBN.Text.ToLower())).ToList();
+                comboList = comboList.Where(p => p.Имя.ToLower().Contains(TBN.Text.ToLower())).ToList();
 
-            LVC.ItemsSource = comboList;
+                LVC.ItemsSource = comboList;
+            }
+            else
+            {
+                var comboList = testWordEntities1.GetTestWordEntities1().Сотрудники.Where(p => p.Бригада == b.КодБригады).ToList();
+
+                comboList = comboList.Where(p => p.Имя.ToLower().Contains(TBN.Text.ToLower())).ToList();
+
+                LVC.ItemsSource = comboList;
+            }
         }
         private void update1()
         {
-            var comboList = testWordEntities1.GetTestWordEntities1().Задачи.ToList();
-            if (CBB1.SelectedIndex > 0)
-                comboList = comboList.Where(p => p.Бригады == (CBB1.SelectedItem as Бригады)).ToList();
+            if (d)
+            {
+                var comboList = testWordEntities1.GetTestWordEntities1().Задачи.ToList();
+                if (CBB1.SelectedIndex > 0)
+                    comboList = comboList.Where(p => p.Бригады == (CBB1.SelectedItem as Бригады)).ToList();
 
 
-            DGT.ItemsSource = comboList;
+                DGT.ItemsSource = comboList;
+            }
+            else
+            {
+                var comboList = testWordEntities1.GetTestWordEntities1().Задачи.Where(p => p.Бригада == b.КодБригады).ToList();
+
+                DGT.ItemsSource = comboList;
+            }
         }
         private void CBB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -75,6 +118,21 @@ namespace testWord
         private void CBB1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             update1();
+        }
+
+        private void AddTask_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddEmp_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddBri_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
