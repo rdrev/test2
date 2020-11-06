@@ -12,7 +12,17 @@
         <TabControl>
             <TabItem Header="Задачи">
                 <Grid>
-                    <DataGrid x:Name="DGT" AutoGenerateColumns="False" IsReadOnly='True'>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <WrapPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="Бригада" Width="175" TextAlignment="Right"/>
+                            <ComboBox Width="225" Name="CBB1" SelectionChanged="CBB1_SelectionChanged" DisplayMemberPath="Машина"/>
+                        </StackPanel>
+                    </WrapPanel>
+                    <DataGrid x:Name="DGT" AutoGenerateColumns="False" IsReadOnly='True' Grid.Row="1">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Задача" Binding="{Binding Задача}"/>
                             <DataGridTextColumn Header="Бригада" Binding="{Binding Бригады.Машина}"/>
@@ -30,7 +40,7 @@
                     <WrapPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="Бригада" Width="175" TextAlignment="Right"/>
-                            <ComboBox Width="225" Name="CBB" SelectionChanged="CBB_SelectionChanged" DisplayMemberPath="Машина"/>
+                            <ComboBox Width="225" Name="CBB2" SelectionChanged="CBB_SelectionChanged" DisplayMemberPath="Машина"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="Имя" Width="175" TextAlignment="Right"/>
