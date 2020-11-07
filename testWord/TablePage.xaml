@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:testWord"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="TablePage">
+      Title="TablePage"
+      IsVisibleChanged="Page_IsVisibleChanged">
 
     <Grid>
         <TabControl>
@@ -33,6 +34,13 @@
                             <DataGridTextColumn Header="Задача" Binding="{Binding Задача}"/>
                             <DataGridTextColumn Header="Бригада" Binding="{Binding Бригады.Машина}"/>
                             <DataGridTextColumn Header="Машина" Binding="{Binding Бригады.Название}"/>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="BtnPer" Content="Снять задачу" Width="auto" Click='BtnPer_Click'/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -77,6 +85,7 @@
                                         <RowDefinition Height="50"/>
                                         <RowDefinition Height="50"/>
                                         <RowDefinition Height="50"/>
+                                        <RowDefinition Height="50"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="200"/>
@@ -89,6 +98,14 @@
                                         </Image.Source>
                                     </Image>
 
+                                    <Grid Grid.Row="5" Grid.ColumnSpan="3">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button x:Name="BtnUpd" Click="BtnUpd_Click" Content="Редоктировать" Grid.Column="0"/>
+                                        <Button x:Name="BtnDel" Click="BtnDel_Click"  Content="Уволить" Grid.Column="1"/>
+                                    </Grid>
                                     <TextBlock Text="Имя" Grid.Column="1" Grid.Row="0"/>
                                     <TextBlock Text="Фамилия" Grid.Column="1" Grid.Row="1"/>
                                     <TextBlock Text="Отчество" Grid.Column="1" Grid.Row="2"/>

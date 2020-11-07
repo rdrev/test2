@@ -52,3 +52,9 @@ C:\Users\admin\source\repos\testWord2\testWord\obj\Debug\testWord.csproj.CoreCom
 C:\Users\admin\source\repos\testWord2\testWord\obj\Debug\testWord.csproj.CopyComplete
 C:\Users\admin\source\repos\testWord2\testWord\obj\Debug\testWord.exe
 C:\Users\admin\source\repos\testWord2\testWord\obj\Debug\testWord.pdb
+C:\Users\admin\source\repos\testWord2\testWord\obj\Debug\AddTaskPage.g.cs
+C:\Users\admin\source\repos\testWord2\testWord\obj\Debug\AddTaskPage.baml
+C:\Users\admin\source\repos\testWord2\testWord\obj\Debug\AddBriPage.g.cs
+C:\Users\admin\source\repos\testWord2\testWord\obj\Debug\AddEmpPage.g.cs
+C:\Users\admin\source\repos\testWord2\testWord\obj\Debug\AddBriPage.baml
+C:\Users\admin\source\repos\testWord2\testWord\obj\Debug\AddEmpPage.baml

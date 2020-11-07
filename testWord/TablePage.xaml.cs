@@ -30,17 +30,6 @@ namespace testWord
             this.d = d;
             this.b = b;
 
-            var comboList = testWordEntities1.GetTestWordEntities1().Бригады.ToList();
-
-            comboList.Insert(0, new Бригады
-            {
-                Машина = "Все"
-            });
-            CBB1.ItemsSource = comboList;
-            CBB2.ItemsSource = comboList;
-
-            CBB1.SelectedIndex = 0;
-            CBB2.SelectedIndex = 0;
 
             if (d)
             {
@@ -61,9 +50,7 @@ namespace testWord
                 AddTask.Visibility = Visibility.Hidden;
                 CBB1.Visibility = Visibility.Hidden;
                 CBB2.Visibility = Visibility.Hidden;
-            }
-            update1();
-            update2();
+            }  
         }
 
         private void update2()
@@ -122,17 +109,64 @@ namespace testWord
 
         private void AddTask_Click(object sender, RoutedEventArgs e)
         {
-
+            MenegerPage.Frame.Navigate(new AddTaskPage());
         }
 
         private void AddEmp_Click(object sender, RoutedEventArgs e)
         {
-
+            MenegerPage.Frame.Navigate(new AddEmpPage(new Сотрудники()));
         }
 
         private void AddBri_Click(object sender, RoutedEventArgs e)
         {
+            MenegerPage.Frame.Navigate(new AddBriPage());
+        }
 
+        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if(Visibility == Visibility.Visible)
+            {
+                update1();
+                update2();
+
+                var comboList = testWordEntities1.GetTestWordEntities1().Бригады.ToList();
+
+                comboList.Insert(0, new Бригады
+                {
+                    Машина = "Все"
+                });
+                CBB1.ItemsSource = comboList;
+                CBB2.ItemsSource = comboList;
+
+                CBB1.SelectedIndex = 0;
+                CBB2.SelectedIndex = 0;
+            }
+        }
+
+        private void BtnUpd_Click(object sender, RoutedEventArgs e)
+        {
+            MenegerPage.Frame.Navigate(new AddEmpPage((sender as Button).DataContext as Сотрудники));
+        }
+
+
+        private void BtnDel_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Вы дельствительно хотете уволить сотрудника", "Подверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                testWordEntities1.GetTestWordEntities1().Сотрудники.Remove((sender as Button).DataContext as Сотрудники);
+                testWordEntities1.GetTestWordEntities1().SaveChanges();
+                update2();
+            }
+        }
+
+        private void BtnPer_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Вы дельствительно хотете удалить задачу", "Подверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                testWordEntities1.GetTestWordEntities1().Задачи.Remove((sender as Button).DataContext as Задачи);
+                testWordEntities1.GetTestWordEntities1().SaveChanges();
+                update1();
+            }
         }
     }
 }
