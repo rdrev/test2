@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,13 +28,18 @@ namespace testWord
 
         private void BtnVxod_Click(object sender, RoutedEventArgs e)
         {
-            var vxod = testWordEntities1.GetTestWordEntities1().Сотрудники.ToList().Find(p => p.Логин == login.Text && p.Пароль == Convert.ToString(password.Password));
+            new Thread(() => 
+            {
+                Dispatcher.Invoke((Action) (()=> 
+                {
+                    var vxod = testWordEntities1.GetTestWordEntities1().Сотрудники.ToList().Find(p => p.Логин == login.Text && p.Пароль == Convert.ToString(password.Password));
 
-            if (vxod != null)
-                MenegerPage.Frame.Navigate(new TablePage(vxod.Должность,vxod.Бригады));
-            else
-            MessageBox.Show("не верный лошин или пароль", "упс");
-
+                    if (vxod != null)
+                        MenegerPage.Frame.Navigate(new TablePage(vxod.Должность, vxod.Бригады));
+                    else
+                        MessageBox.Show("не верный лошин или пароль", "упс");
+                }));
+            }).Start();
         }
 
         private void BtnAvtor_Click(object sender, RoutedEventArgs e)
